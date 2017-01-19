@@ -10,4 +10,5 @@ I am a big fan of Angular! I know it's all about React these days, but I feel wi
 
 1. Angular apps can become quite cumbersome, and if you're not implmenting a component architectue it seems that it would make apps difficult to scale. 
 2. It takes some time to actually get an application started, ie Hello World
-3. It can take apps quite some time to render due to DOM manipulation (Hoping Angular 2 improves this) 
+3. It can take apps quite some time to render due to DOM manipulation (Hoping Angular 2 improves this)
+ 

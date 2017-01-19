@@ -30,7 +30,7 @@ class T9TrieNode(object):
     """
     def __init__(self, number):
         self.number = number
-        self.word = None
+        self.word = []
         self.children = []
 
     def insert(self, word):
@@ -47,13 +47,11 @@ class T9TrieNode(object):
                 node.add_child(child)
 
             node = child
-
-        node.word = word
+        # self.word was being overwritten each go around, so I switched it do an array to provide mulitle matching words
+        node.word.append(word)
 
     def find_child_by_number(self, n):
-        print('self.children in search %r' % (self.children))
         for child in self.children:
-            print('child.word %r' % (child.word))
             if child.number == n:
                 return child
 
@@ -80,15 +78,11 @@ class T9TrieNode(object):
             return []
 
     def collect_subwords(self):
-        result = []
-        if self.word:
-            result.append(self.word)
-
+        # removed result array as it was double nested self.word
         for c in self.children:
-            result.extend(c.collect_subwords())
+            self.word.extend(c.collect_subwords())
 
-        # print("Value of %r" % (result))
-        return result
+        return self.word
 
 
 WORD_LIST = [
@@ -128,10 +122,10 @@ class T9TrieNodeTest(unittest.TestCase):
     def test_no_match(self):
         self.assertEqual([], self.t9trie.search([2, 9, 9]))
 
-    """test to catch bode AND code bug. Not currently passing. I believe this is the bug, but I could not get a proper working solution before 5pm Wed 
+    # test for code/bode bug complete
     def test_found_bug(self):
         self.assertEqual(["bode", "code"], self.t9trie.search([2, 6, 3, 3]))
 
-    """
+    
 if __name__ == "__main__":
     unittest.main()
